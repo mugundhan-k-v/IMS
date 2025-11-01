@@ -50,19 +50,8 @@ npm run dev
 - `client/src/api.js` — client API wrappers
 - `client/src/pages/` — main UI pages: `Products`, `Suppliers`, `Reports`, `Notifications`, `Dashboard`, `Login`
 - `client/src/index.css` — theme & table styles (includes `.table-presentable` and `.notif-dot`)
-- `PROJECT_REPORT.md` — detailed project report
 
-## Notes & recommended next steps
-
-- Security: passwords are currently stored plaintext in this demo. Migrate to bcrypt hashing and use a persistent session store (Redis) for production.
-- Notifications: currently implemented with DB triggers and client polling; consider WebSockets/SSE for realtime delivery.
-- CSV export: client-side generation is fine for small datasets; for large datasets consider server-side streaming.
-- Add automated tests (server + client) and CI for production readiness.
-
-If you want, I can:
-- Run the dev servers and validate UI behaviors live (notifications dot, CSV export, product update).
-- Create a GitHub-ready `README.md` variant (with badges) or add Dockerfiles and a `docker-compose` for local dev.
 
 ---
 
-Created from `PROJECT_REPORT.md`. For full details see `PROJECT_REPORT.md`.
+For full details see `wiki`.
