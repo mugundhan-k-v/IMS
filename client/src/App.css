@@ -1,11 +1,10 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* allow full-bleed layout — padding controlled in layout styles */
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
-
-#root { max-width: 1200px; margin: 28px auto; padding: 0 18px 48px; text-align: left }
 
 .navbar-custom { display:flex; align-items:center; justify-content:space-between }
 

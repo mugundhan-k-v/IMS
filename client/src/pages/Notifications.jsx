@@ -45,7 +45,7 @@ export default function Notifications() {
             </div>
             <div>
               {!n.is_read && <button className="btn btn-sm btn-primary me-2" onClick={() => handleMark(n)}>Mark read</button>}
-              <button className="btn btn-sm btn-outline-secondary" onClick={() => navigate(`/products/${n.product_id}`)}>View product</button>
+              <button className="btn btn-sm btn-outline-secondary" onClick={() => navigate(`/products`)}>View product</button>
             </div>
           </div>
         ))}
