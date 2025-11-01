@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
-import { getSuppliers, createSupplier } from '../api'
+import { getSuppliers, createSupplier, updateSupplier, deleteSupplier } from '../api'
 
 export default function Suppliers() {
   const [suppliers, setSuppliers] = useState([])
   const [form, setForm] = useState({ name: '', contact: '', address: '', username: '', password: '', display_name: '' })
+  const [editingId, setEditingId] = useState(null)
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState(null)
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => { 
     const raw = localStorage.getItem('ims_user')
@@ -24,10 +26,37 @@ export default function Suppliers() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    await createSupplier(form)
-    setForm({ name: '', contact: '', address: '', username: '', password: '', display_name: '' })
+    setSubmitting(true)
+    try {
+      if (editingId) {
+        await updateSupplier(editingId, { name: form.name, contact: form.contact, address: form.address })
+        setMessage('Supplier updated')
+      } else {
+        await createSupplier(form)
+        setMessage('Supplier created')
+      }
+      setForm({ name: '', contact: '', address: '', username: '', password: '', display_name: '' })
+      setEditingId(null)
+      await load()
+    } catch (err) {
+      console.error('Supplier save failed', err)
+      setMessage(err?.response?.data?.error || String(err))
+    } finally {
+      setSubmitting(false)
+      setTimeout(() => setMessage(null), 3000)
+    }
+  }
+
+  function beginEdit(s) {
+    setEditingId(s.id)
+    setForm({ name: s.name || '', contact: s.contact || '', address: s.address || '', username: '', password: '', display_name: '' })
+  }
+
+  async function handleDelete(id) {
+    if (!confirm('Delete supplier? This will remove the supplier record.')) return
+    await deleteSupplier(id)
+    setMessage('Supplier deleted')
     load()
-    setMessage('Supplier created')
     setTimeout(() => setMessage(null), 3000)
   }
 
@@ -57,7 +86,7 @@ export default function Suppliers() {
             <input name="address" className="form-control" placeholder="Address" value={form.address} onChange={handleChange} />
           </div>
           <div className="col-md-2">
-            <button className="btn btn-primary" type="submit">Add Supplier</button>
+            <button className="btn btn-primary" type="submit" disabled={submitting}>{submitting ? 'Saving...' : (editingId ? 'Update' : 'Add Supplier')}</button>
           </div>
         </div>
 
@@ -81,6 +110,7 @@ export default function Suppliers() {
             <th>Name</th>
             <th>Contact</th>
             <th>Address</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -90,6 +120,10 @@ export default function Suppliers() {
               <td data-label="Name">{s.name}</td>
               <td data-label="Contact">{s.contact}</td>
               <td data-label="Address">{s.address}</td>
+              <td data-label="Actions">
+                <button className="btn-edit me-2" onClick={() => beginEdit(s)}>Edit</button>
+                <button className="btn-delete" onClick={() => handleDelete(s.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>

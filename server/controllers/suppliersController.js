@@ -59,6 +59,7 @@ async function deleteSupplier(id) {
 
 module.exports = {
   createSupplier,
+  createSupplierWithUser,
   getAllSuppliers,
   getSupplierById,
   updateSupplier,

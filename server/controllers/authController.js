@@ -10,4 +10,15 @@ async function registerSupplier({ username, password, display_name, supplier_id 
   return res.insertId;
 }
 
-module.exports = { login, registerSupplier };
+async function changePassword(userId, currentPassword, newPassword) {
+  // verify current password matches
+  const [rows] = await pool.query('SELECT id FROM users WHERE id = ? AND password = ?', [userId, currentPassword]);
+  if (!rows || rows.length === 0) {
+    const err = new Error('current password incorrect');
+    err.code = 'INVALID_CURRENT_PASSWORD';
+    throw err;
+  }
+  await pool.query('UPDATE users SET password = ? WHERE id = ?', [newPassword, userId]);
+}
+
+module.exports = { login, registerSupplier, changePassword };

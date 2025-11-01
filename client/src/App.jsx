@@ -6,6 +6,7 @@ import Suppliers from './pages/Suppliers'
 import Login from './pages/Login'
 import Reports from './pages/Reports'
 import Notifications from './pages/Notifications'
+import Account from './pages/Account'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { getNotifications } from './api'
@@ -62,6 +63,7 @@ function App() {
               <li className="nav-item mx-2">
                 <NavLink className="nav-link" to="/products">Products</NavLink>
               </li>
+              
               {/* Only owners manage suppliers and reports */}
               {user && user.role === 'owner' && (
                 <>
@@ -73,6 +75,9 @@ function App() {
                   </li>
                 </>
               )}
+              <li className="nav-item mx-2">
+                <NavLink className="nav-link" to="/account">Account</NavLink>
+              </li>
             </ul>
           </div>
 
@@ -98,6 +103,7 @@ function App() {
           <Route path="/suppliers" element={<Suppliers />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/notifications" element={<Notifications />} />
+              <Route path="/account" element={<Account />} />
         </Routes>
       </div>
     </div>

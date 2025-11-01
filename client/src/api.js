@@ -18,6 +18,11 @@ export async function login(payload) {
   return res.data;
 }
 
+export async function changePassword(currentPassword, newPassword) {
+  const res = await client.put('/auth/password', { currentPassword, newPassword });
+  return res.data;
+}
+
 export async function getProduct(id) {
   const res = await client.get(`/products/${id}`);
   return res.data;
@@ -50,6 +55,21 @@ export async function getSuppliers() {
 
 export async function createSupplier(payload) {
   const res = await client.post('/suppliers', payload);
+  return res.data;
+}
+
+export async function getSupplier(id) {
+  const res = await client.get(`/suppliers/${id}`);
+  return res.data;
+}
+
+export async function updateSupplier(id, payload) {
+  const res = await client.put(`/suppliers/${id}`, payload);
+  return res.data;
+}
+
+export async function deleteSupplier(id) {
+  const res = await client.delete(`/suppliers/${id}`);
   return res.data;
 }
 
