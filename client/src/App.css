@@ -1,0 +1,28 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+#root { max-width: 1200px; margin: 28px auto; padding: 0 18px 48px; text-align: left }
+
+.navbar-custom { display:flex; align-items:center; justify-content:space-between }
+
+.nav-actions { display:flex; align-items:center; gap:12px }
+
+.card { padding: 18px; border-radius: 12px }
+
+.header-row { display:flex; align-items:center; justify-content:space-between; gap: 12px }
+
+.stats-grid { display:flex; gap:18px; margin-bottom:18px }
+
+.chart-card { padding:16px }
+
+.center { text-align:center }
+
+.badge-low { background: linear-gradient(90deg,#ffb4a2,#ff6b6b); color:#fff; padding:6px 10px; border-radius:8px; font-weight:700 }
+
+.ui-small { font-size:0.9rem }
+
+.page { padding-top: 6px }
